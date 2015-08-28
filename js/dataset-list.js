@@ -13,6 +13,12 @@ var DatasetListItem = React.createClass({
     render: function() {
         return (
             <div className="dataset-list-item">
+                <div className="pull-left toggle">
+                    <input
+                        type="checkbox"
+                        checked={this.props.dataset.visible}
+                        onChange={this.toggle} />
+                </div>
                 <div className="pull-right">
                     <Glyphicon
                         glyph="edit"
@@ -25,10 +31,9 @@ var DatasetListItem = React.createClass({
                         className="text-danger"
                         onClick={this.remove} />
                 </div>
-                <input
-                    type="checkbox"
-                    checked={this.props.dataset.visible}
-                    onChange={this.toggle} /> {this.props.dataset.name}
+                <div className="name">
+                    {this.props.dataset.name}
+                </div>
             </div>
         );
     }
