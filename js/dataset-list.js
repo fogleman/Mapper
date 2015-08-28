@@ -1,8 +1,12 @@
 var DatasetListItem = React.createClass({
+    remove: function() {
+        console.log("remove");
+    },
     render: function() {
         return (
-            <div>
-                {this.props.name}
+            <div className="dataset-list-item">
+                <Glyphicon glyph="remove" className="pull-right text-danger" onClick={this.remove} />
+                <input type="checkbox" defaultChecked /> {this.props.name}
             </div>
         );
     }

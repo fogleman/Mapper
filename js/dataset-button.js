@@ -19,13 +19,15 @@ var DatasetButton = React.createClass({
         });
     },
     submit: function() {
-        var dataset = new Dataset(this.state.name, this.state.data);
+        var name = this.state.name || "Untitled";
+        var data = this.state.data;
+        var dataset = new Dataset(name, data);
         theApp.addDataset(dataset);
         this.close();
     },
     onChange: function() {
         this.setState({
-            name: this.refs.name.getValue() || "Untitled",
+            name: this.refs.name.getValue(),
             data: this.refs.data.getValue(),
         });
     },

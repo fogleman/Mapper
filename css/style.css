@@ -37,3 +37,8 @@ html, body, #map {
     margin-top: -2px;
     margin-right: -2px;
 }
+
+.dataset-list-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
