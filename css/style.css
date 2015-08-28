@@ -42,3 +42,8 @@ html, body, #map {
     padding: 8px;
     border-bottom: 1px solid #eee;
 }
+
+.dataset-list-item .glyphicon {
+    cursor: pointer;
+    margin-left: 8px;
+}

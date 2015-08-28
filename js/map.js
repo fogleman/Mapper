@@ -45,17 +45,33 @@ var Marker = NewMapComponent(google.maps.Marker);
 
 var Map = React.createClass({
     render: function() {
-        var datasets = this.props.datasets.map(function(dataset) {
-            return dataset.createMarkers();
-        });
         var options = {
             zoom: this.props.zoom,
             center: {lat: this.props.latitude, lng: this.props.longitude},
         }
         return (
             <BaseMap options={options}>
-                {datasets}
+                {this.props.datasets.map(this.renderDataset)}
             </BaseMap>
         );
+    },
+    renderDataset: function(dataset) {
+        if (!dataset.visible) {
+            return null;
+        }
+        var result = [];
+        for (var i = 0; i < dataset.points.length; i++) {
+            var options = {
+                map: theMap,
+                position: dataset.points[i],
+            };
+            var marker = (
+                <Marker
+                    key={i}
+                    options={options} />
+            );
+            result.push(marker);
+        }
+        return result;
     },
 });

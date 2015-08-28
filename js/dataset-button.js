@@ -22,7 +22,7 @@ var DatasetButton = React.createClass({
         var name = this.state.name || "Untitled";
         var data = this.state.data;
         var dataset = new Dataset(name, data);
-        theApp.addDataset(dataset);
+        this.props.add(dataset);
         this.close();
     },
     onChange: function() {

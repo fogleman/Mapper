@@ -1,12 +1,34 @@
 var DatasetListItem = React.createClass({
+    toggle: function() {
+        this.props.toggle(this.props.dataset);
+    },
     remove: function() {
-        console.log("remove");
+        this.props.remove(this.props.dataset);
+    },
+    fit: function() {
+        this.props.fit(this.props.dataset);
+    },
+    edit: function() {
     },
     render: function() {
         return (
             <div className="dataset-list-item">
-                <Glyphicon glyph="remove" className="pull-right text-danger" onClick={this.remove} />
-                <input type="checkbox" defaultChecked /> {this.props.name}
+                <div className="pull-right">
+                    <Glyphicon
+                        glyph="edit"
+                        onClick={this.edit} />
+                    <Glyphicon
+                        glyph="search"
+                        onClick={this.fit} />
+                    <Glyphicon
+                        glyph="remove"
+                        className="text-danger"
+                        onClick={this.remove} />
+                </div>
+                <input
+                    type="checkbox"
+                    checked={this.props.dataset.visible}
+                    onChange={this.toggle} /> {this.props.dataset.name}
             </div>
         );
     }
@@ -17,12 +39,16 @@ var DatasetList = React.createClass({
         var items = this.props.datasets.map(function (dataset, i) {
             return <DatasetListItem
                 key={i}
-                {...dataset} />
-        });
+                toggle={this.props.toggle}
+                remove={this.props.remove}
+                fit={this.props.fit}
+                dataset={dataset} />
+        }, this);
         return (
             <div>
                 <div className="sidebar-header">
-                    <DatasetButton />
+                    <DatasetButton
+                        add={this.props.add} />
                     <h4>Datasets</h4>
                 </div>
                 {items}
