@@ -63,6 +63,7 @@ var theMap = new google.maps.Map(document.getElementById("map"));
 var BaseMap = NewMapComponent(theMap, true);
 var Marker = NewMapComponent(google.maps.Marker);
 var Polyline = NewMapComponent(google.maps.Polyline);
+var Heatmap = NewMapComponent(google.maps.visualization.HeatmapLayer);
 
 var Map = React.createClass({
     render: function() {
@@ -80,6 +81,13 @@ var Map = React.createClass({
         if (!dataset.visible) {
             return null;
         }
+        // var options = {
+        //     map: theMap,
+        //     data: dataset.points,
+        //     dissipating: false,
+        //     radius: 0.0005,
+        // };
+        // return <Heatmap options={options} />
         var result = [];
         // var options = {
         //     map: theMap,
@@ -99,8 +107,8 @@ var Map = React.createClass({
         //     map: theMap,
         //     path: dataset.points,
         //     geodesic: true,
-        //     strokeColor: "#ffffff",
-        //     strokeOpacity: 1,
+        //     strokeColor: "#ff3333",
+        //     strokeOpacity: 0.4,
         //     strokeWeight: 4,
         //     zIndex: 10001,
         // };
@@ -109,19 +117,25 @@ var Map = React.createClass({
         //         options={options} />
         // );
         // result.push(polyline);
+        // var icon = {
+        //     path: SYMBOL_CIRCLE,
+        //     scale: 3,
+        //     strokeColor: "#000000",
+        //     strokeOpacity: 1,
+        //     strokeWeight: 0.5,
+        //     fillColor: "#ff0000",
+        //     fillOpacity: 1,
+        // };
+        var icon = {
+            url: "img/marker.png",
+            scaledSize: new google.maps.Size(12, 12),
+            anchor: new google.maps.Point(6, 6),
+        };
         for (var i = 0; i < dataset.points.length; i++) {
             var options = {
                 map: theMap,
                 position: dataset.points[i],
-                icon: {
-                    path: SYMBOL_CIRCLE,
-                    scale: 3,
-                    strokeColor: "#000000",
-                    strokeOpacity: 1,
-                    strokeWeight: 0.5,
-                    fillColor: "#ff0000",
-                    fillOpacity: 1,
-                },
+                icon: icon
             };
             var marker = (
                 <Marker
