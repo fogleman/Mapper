@@ -1,22 +1,9 @@
-var SYMBOL_CIRCLE = google.maps.SymbolPath.CIRCLE;
-var SYMBOL_SQUARE = "M 1 1 L 1 -1 -1 -1 -1 1 z";
-var SYMBOL_TRIANGLE = "M 0 -1 L 1 1 -1 1 z";
-var SYMBOL_X = "M -1 -1 L 1 1 M -1 1 L 1 -1";
-var SYMBOL_PLUS = "M -1 0 L 1 0 M 0 -1 L 0 1";
-var SYMBOL_DIAMOND = "M -1 0 L 0 -1 1 0 0 1 z";
-
-var SYMBOLS = [
-    SYMBOL_CIRCLE,
-    SYMBOL_SQUARE,
-    SYMBOL_TRIANGLE,
-    SYMBOL_X,
-    SYMBOL_PLUS,
-    SYMBOL_DIAMOND,
-];
-
-var MARKERS = 1;
-var POLYLINE = 2;
-var POLYLINE_MARKERS = 3;
+// var SYMBOL_CIRCLE = google.maps.SymbolPath.CIRCLE;
+// var SYMBOL_SQUARE = "M 1 1 L 1 -1 -1 -1 -1 1 z";
+// var SYMBOL_TRIANGLE = "M 0 -1 L 1 1 -1 1 z";
+// var SYMBOL_X = "M -1 -1 L 1 1 M -1 1 L 1 -1";
+// var SYMBOL_PLUS = "M -1 0 L 1 0 M 0 -1 L 0 1";
+// var SYMBOL_DIAMOND = "M -1 0 L 0 -1 1 0 0 1 z";
 
 function NewMapComponent(cls, isInstance) {
     return React.createClass({
@@ -60,9 +47,11 @@ function NewMapComponent(cls, isInstance) {
 }
 
 var theMap = new google.maps.Map(document.getElementById("map"));
+
 var BaseMap = NewMapComponent(theMap, true);
 var Marker = NewMapComponent(google.maps.Marker);
 var Polyline = NewMapComponent(google.maps.Polyline);
+var Polygon = NewMapComponent(google.maps.Polygon);
 var Heatmap = NewMapComponent(google.maps.visualization.HeatmapLayer);
 
 var Map = React.createClass({
@@ -81,68 +70,52 @@ var Map = React.createClass({
         if (!dataset.visible) {
             return null;
         }
-        // var options = {
-        //     map: theMap,
-        //     data: dataset.points,
-        //     dissipating: false,
-        //     radius: 0.0005,
-        // };
-        // return <Heatmap options={options} />
         var result = [];
-        // var options = {
-        //     map: theMap,
-        //     path: dataset.points,
-        //     geodesic: true,
-        //     strokeColor: "#000000",
-        //     strokeOpacity: 1,
-        //     strokeWeight: 6,
-        //     zIndex: 10000,
-        // };
-        // var polyline = (
-        //     <Polyline
-        //         options={options} />
-        // );
-        // result.push(polyline);
-        // var options = {
-        //     map: theMap,
-        //     path: dataset.points,
-        //     geodesic: true,
-        //     strokeColor: "#ff3333",
-        //     strokeOpacity: 0.4,
-        //     strokeWeight: 4,
-        //     zIndex: 10001,
-        // };
-        // var polyline = (
-        //     <Polyline
-        //         options={options} />
-        // );
-        // result.push(polyline);
-        // var icon = {
-        //     path: SYMBOL_CIRCLE,
-        //     scale: 3,
-        //     strokeColor: "#000000",
-        //     strokeOpacity: 1,
-        //     strokeWeight: 0.5,
-        //     fillColor: "#ff0000",
-        //     fillOpacity: 1,
-        // };
-        var icon = {
-            url: "img/marker.png",
-            scaledSize: new google.maps.Size(12, 12),
-            anchor: new google.maps.Point(6, 6),
-        };
-        for (var i = 0; i < dataset.points.length; i++) {
-            var options = {
+        if (dataset.markerOptions.visible) {
+            for (var i = 0; i < dataset.points.length; i++) {
+                var options = _.extendOwn({}, dataset.markerOptions, {
+                    map: theMap,
+                    position: dataset.points[i],
+                });
+                var marker = (
+                    <Marker
+                        options={options} />
+                );
+                result.push(marker);
+            }
+        }
+        if (dataset.polylineOptions.visible) {
+            var options = _.extendOwn({}, dataset.polylineOptions, {
                 map: theMap,
-                position: dataset.points[i],
-                icon: icon
-            };
-            var marker = (
-                <Marker
-                    key={i}
+                path: dataset.points,
+            });
+            var polyline = (
+                <Polyline
                     options={options} />
             );
-            result.push(marker);
+            result.push(polyline);
+        }
+        if (dataset.polygonOptions.visible) {
+            var options = _.extendOwn({}, dataset.polygonOptions, {
+                map: theMap,
+                paths: dataset.points,
+            });
+            var polygon = (
+                <Polygon
+                    options={options} />
+            );
+            result.push(polygon);
+        }
+        if (dataset.heatmapOptions.visible) {
+            var options = _.extendOwn({}, dataset.heatmapOptions, {
+                map: theMap,
+                data: dataset.points,
+            });
+            var heatmap = (
+                <Heatmap
+                    options={options} />
+            );
+            result.push(heatmap);
         }
         return result;
     },
