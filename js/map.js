@@ -66,7 +66,7 @@ var Map = React.createClass({
         }
         if (dataset.markerOptions.visible) {
             for (var i = 0; i < dataset.points.length; i++) {
-                var options = _.extendOwn({}, dataset.markerOptions, {
+                var options = _.extendOwn({}, dataset.getMarkerOptions(), {
                     map: theMap,
                     position: dataset.points[i],
                 });

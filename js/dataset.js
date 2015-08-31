@@ -9,22 +9,15 @@ var Dataset = function(name, data) {
         this.bounds.extend(x);
     }, this);
 
-    var symbol = {
+    this.markerOptions = {
+        visible: true,
         symbol: "circle",
         size: 8,
         strokeWeight: 1,
-        strokeColor: "000000",
+        strokeColor: "#000000",
         strokeOpacity: 1,
-        fillColor: "000000",
+        fillColor: "#000000",
         fillOpacity: 0.5,
-    };
-
-    this.markerOptions = {
-        visible: true,
-        icon: {
-            url: "http://www.michaelfogleman.com/symbols/?" + $.param(symbol),
-            anchor: new google.maps.Point(symbol.size, symbol.size),
-        },
     };
 
     this.polylineOptions = {
@@ -65,5 +58,19 @@ Dataset.prototype = {
             }
         }
         return result;
+    },
+    getMarkerOptions: function() {
+        var opts = this.markerOptions;
+        var icon = null;
+        if (this.markerOptions.symbol !== "default") {
+            icon = {
+                url: "http://www.michaelfogleman.com/symbols/?" + $.param(opts).replace(/%23/g, ""),
+                anchor: new google.maps.Point(opts.size, opts.size),
+            };
+        }
+        return {
+            visible: opts.visible,
+            icon: icon,
+        };
     },
 };
