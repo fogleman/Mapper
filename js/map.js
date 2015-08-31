@@ -65,11 +65,13 @@ var Map = React.createClass({
             return result;
         }
         if (dataset.markerOptions.visible) {
+            var markerOptions = dataset.getMarkerOptions();
             for (var i = 0; i < dataset.points.length; i++) {
-                var options = _.extendOwn({}, dataset.getMarkerOptions(), {
+                var options = {
                     map: theMap,
                     position: dataset.points[i],
-                });
+                    icon: markerOptions.icon,
+                };
                 var marker = (
                     <Marker
                         options={options} />
