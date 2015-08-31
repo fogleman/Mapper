@@ -9,12 +9,21 @@ var Dataset = function(name, data) {
         this.bounds.extend(x);
     }, this);
 
+    var params = {
+        symbol: "circle",
+        size: 8,
+        strokeWeight: 1,
+        strokeColor: "ff0000",
+        strokeOpacity: 1,
+        fillColor: "ff0000",
+        fillOpacity: 0.3,
+    };
+
     this.markerOptions = {
         visible: true,
         icon: {
-            url: "img/marker.png",
-            scaledSize: new google.maps.Size(12, 12),
-            anchor: new google.maps.Point(6, 6),
+            url: "http://127.0.0.1:5000/?" + $.param(params),
+            anchor: new google.maps.Point(params.size, params.size),
         },
     };
 

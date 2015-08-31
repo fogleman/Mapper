@@ -1,10 +1,3 @@
-// var SYMBOL_CIRCLE = google.maps.SymbolPath.CIRCLE;
-// var SYMBOL_SQUARE = "M 1 1 L 1 -1 -1 -1 -1 1 z";
-// var SYMBOL_TRIANGLE = "M 0 -1 L 1 1 -1 1 z";
-// var SYMBOL_X = "M -1 -1 L 1 1 M -1 1 L 1 -1";
-// var SYMBOL_PLUS = "M -1 0 L 1 0 M 0 -1 L 0 1";
-// var SYMBOL_DIAMOND = "M -1 0 L 0 -1 1 0 0 1 z";
-
 function NewMapComponent(cls, isInstance) {
     return React.createClass({
         getInitialState: function() {
@@ -67,10 +60,10 @@ var Map = React.createClass({
         );
     },
     renderDataset: function(dataset) {
-        if (!dataset.visible) {
-            return null;
-        }
         var result = [];
+        if (!dataset.visible) {
+            return result;
+        }
         if (dataset.markerOptions.visible) {
             for (var i = 0; i < dataset.points.length; i++) {
                 var options = _.extendOwn({}, dataset.markerOptions, {
