@@ -25,6 +25,8 @@ var App = React.createClass({
         this.setState({
             datasets: datasets,
         });
+        this.select(dataset);
+        this.fit(dataset);
     },
     toggle: function(dataset) {
         dataset.visible = !dataset.visible;
