@@ -18,6 +18,7 @@ var App = React.createClass({
             longitude: -98.35,
             zoom: 4,
             datasets: [world, us, nc, vehicle],
+            selected: null,
         };
     },
     add: function(dataset) {
@@ -38,8 +39,19 @@ var App = React.createClass({
             datasets: datasets,
         });
     },
+    select: function(dataset) {
+        if (this.state.selected === dataset) {
+            dataset = null;
+        }
+        this.setState({
+            selected: dataset,
+        });
+    },
     fit: function(dataset) {
         theMap.fitBounds(dataset.bounds);
+    },
+    onChange: function() {
+        this.forceUpdate();
     },
     render: function() {
         return (
@@ -47,11 +59,15 @@ var App = React.createClass({
                 <div className="left-sidebar">
                     <DatasetList
                         datasets={this.state.datasets}
+                        selected={this.state.selected}
                         add={this.add}
                         toggle={this.toggle}
                         remove={this.remove}
+                        select={this.select}
                         fit={this.fit} />
-                    <SettingsPane />
+                    <SettingsPane
+                        onChange={this.onChange}
+                        dataset={this.state.selected} />
                 </div>
                 <div className="map-components">
                     <Map

@@ -11,8 +11,8 @@ var Dataset = function(name, data) {
 
     var symbol = {
         symbol: "circle",
-        size: 12,
-        strokeWeight: 0,
+        size: 8,
+        strokeWeight: 1,
         strokeColor: "000000",
         strokeOpacity: 1,
         fillColor: "000000",

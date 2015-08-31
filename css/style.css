@@ -24,7 +24,7 @@ html, body, #map {
 }
 
 .sidebar-header {
-    background: #eee;
+    background: #ddd;
     padding: 8px;
     border-bottom: 1px solid #ccc;
 }
@@ -38,19 +38,13 @@ html, body, #map {
     margin-right: -2px;
 }
 
-.sidebar-subheader {
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
-}
-
-.sidebar-subheader h4 {
-    margin: 0;
-    font-size: 11pt;
-}
-
 .dataset-list-item {
     padding: 8px;
     border-bottom: 1px solid #ccc;
+}
+
+.selected {
+    background: #f6f6f6;
 }
 
 .dataset-list-item .glyphicon {
@@ -67,16 +61,55 @@ html, body, #map {
     margin-top: -2px;
 }
 
+.dataset-list-item span {
+    cursor: pointer;
+}
+
 .settings {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+    width: 100%;
 }
 
-.settings select, .settings input {
-    display: block;
+.settings th.section {
+    font-weight: bold;
+    background: #f6f6f6;
 }
 
-.settings label {
-    margin-right: 5px;
+.settings th {
     font-size: 9pt;
+    font-weight: normal;
+    padding-right: 2px;
+    white-space: nowrap;
+    height: 32px;
+    text-align: left;
+    padding: 4px;
+    padding-left: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.settings td {
+    padding: 4px;
+    padding-right: 8px;
+    height: 32px;
+    border-bottom: 1px solid #eee;
+}
+
+.settings th input {
+    margin-right: 5px;
+}
+
+.settings input[type="color"] {
+    width: 100%;
+}
+
+.settings input[type="text"] {
+    width: 100%;
+}
+
+.settings select {
+    width: 100%;
+}
+
+.settings-message {
+    margin: 10px;
+    color: #888;
 }

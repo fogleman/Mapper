@@ -8,11 +8,16 @@ var DatasetListItem = React.createClass({
     fit: function() {
         this.props.fit(this.props.dataset);
     },
-    edit: function() {
+    select: function() {
+        this.props.select(this.props.dataset);
     },
     render: function() {
+        var className = "dataset-list-item";
+        if (this.props.selected) {
+            className += " selected";
+        }
         return (
-            <div className="dataset-list-item">
+            <div className={className}>
                 <div className="pull-left toggle">
                     <input
                         type="checkbox"
@@ -20,9 +25,6 @@ var DatasetListItem = React.createClass({
                         onChange={this.toggle} />
                 </div>
                 <div className="pull-right">
-                    <Glyphicon
-                        glyph="edit"
-                        onClick={this.edit} />
                     <Glyphicon
                         glyph="search"
                         onClick={this.fit} />
@@ -32,7 +34,7 @@ var DatasetListItem = React.createClass({
                         onClick={this.remove} />
                 </div>
                 <div className="name">
-                    {this.props.dataset.name}
+                    <span onClick={this.select}>{this.props.dataset.name || "(Untitled)"}</span>
                 </div>
             </div>
         );
@@ -42,10 +44,13 @@ var DatasetListItem = React.createClass({
 var DatasetList = React.createClass({
     render: function() {
         var items = this.props.datasets.map(function (dataset, i) {
+            var selected = this.props.selected === dataset;
             return <DatasetListItem
                 key={i}
+                selected={selected}
                 toggle={this.props.toggle}
                 remove={this.props.remove}
+                select={this.props.select}
                 fit={this.props.fit}
                 dataset={dataset} />
         }, this);
