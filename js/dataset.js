@@ -9,7 +9,7 @@ var Dataset = function(name, data) {
         this.bounds.extend(x);
     }, this);
 
-    var params = {
+    var symbol = {
         symbol: "circle",
         size: 8,
         strokeWeight: 1,
@@ -22,8 +22,8 @@ var Dataset = function(name, data) {
     this.markerOptions = {
         visible: true,
         icon: {
-            url: "http://127.0.0.1:5000/?" + $.param(params),
-            anchor: new google.maps.Point(params.size, params.size),
+            url: "http://www.michaelfogleman.com/symbols/?" + $.param(symbol),
+            anchor: new google.maps.Point(symbol.size, symbol.size),
         },
     };
 

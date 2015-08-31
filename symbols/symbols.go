@@ -173,7 +173,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	if options.StrokeWeight < 1 || options.StrokeWeight > 100 {
+	if options.StrokeWeight < 0 || options.StrokeWeight > 100 {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
