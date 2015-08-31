@@ -31,6 +31,9 @@ var App = React.createClass({
         this.forceUpdate();
     },
     remove: function(dataset) {
+        if (this.state.selected === dataset) {
+            this.select(dataset);
+        }
         var datasets = this.state.datasets;
         datasets.splice(datasets.indexOf(dataset), 1);
         this.setState({
