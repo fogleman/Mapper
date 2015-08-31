@@ -38,9 +38,19 @@ html, body, #map {
     margin-right: -2px;
 }
 
+.sidebar-subheader {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.sidebar-subheader h4 {
+    margin: 0;
+    font-size: 11pt;
+}
+
 .dataset-list-item {
     padding: 8px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
 }
 
 .dataset-list-item .glyphicon {
@@ -55,4 +65,18 @@ html, body, #map {
 
 .dataset-list-item .toggle {
     margin-top: -2px;
+}
+
+.settings {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.settings select, .settings input {
+    display: block;
+}
+
+.settings label {
+    margin-right: 5px;
+    font-size: 9pt;
 }

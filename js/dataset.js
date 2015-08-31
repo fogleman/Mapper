@@ -11,12 +11,12 @@ var Dataset = function(name, data) {
 
     var symbol = {
         symbol: "circle",
-        size: 8,
-        strokeWeight: 1,
-        strokeColor: "ff0000",
+        size: 12,
+        strokeWeight: 0,
+        strokeColor: "000000",
         strokeOpacity: 1,
-        fillColor: "ff0000",
-        fillOpacity: 0.3,
+        fillColor: "000000",
+        fillOpacity: 0.5,
     };
 
     this.markerOptions = {

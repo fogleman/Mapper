@@ -51,6 +51,7 @@ var App = React.createClass({
                         toggle={this.toggle}
                         remove={this.remove}
                         fit={this.fit} />
+                    <SettingsPane />
                 </div>
                 <div className="map-components">
                     <Map
