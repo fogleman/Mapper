@@ -1,38 +1,50 @@
 var SettingsPane = React.createClass({
+    getValue: function(x) {
+        return React.findDOMNode(this.refs[x]).value;
+    },
+    getChecked: function(x) {
+        return React.findDOMNode(this.refs[x]).checked;
+    },
+    f: function(power, multiplier, offset, x) {
+        return multiplier * Math.pow(x, power) + offset;
+    },
+    g: function(power, multipler, offset, y) {
+        return Math.pow((y - offset) / multipler, 1 / power);
+    },
     onChange: function() {
         var dataset = this.props.dataset;
-        dataset.name = React.findDOMNode(this.refs.name).value;
+        dataset.name = this.getValue("name");
         if (dataset.markerOptions.visible) {
-            dataset.markerOptions.symbol = React.findDOMNode(this.refs.markerSymbol).value;
-            dataset.markerOptions.size = React.findDOMNode(this.refs.markerSize).value;
-            dataset.markerOptions.strokeWeight = React.findDOMNode(this.refs.markerStrokeWeight).value;
-            dataset.markerOptions.strokeColor = React.findDOMNode(this.refs.markerStrokeColor).value;
-            dataset.markerOptions.strokeOpacity = React.findDOMNode(this.refs.markerStrokeOpacity).value;
-            dataset.markerOptions.fillColor = React.findDOMNode(this.refs.markerFillColor).value;
-            dataset.markerOptions.fillOpacity = React.findDOMNode(this.refs.markerFillOpacity).value;
+            dataset.markerOptions.symbol = this.getValue("markerSymbol");
+            dataset.markerOptions.size = this.f(2, 99, 1, this.getValue("markerSize"));
+            dataset.markerOptions.strokeWeight = this.f(2, 32, 0, this.getValue("markerStrokeWeight"));
+            dataset.markerOptions.strokeColor = this.getValue("markerStrokeColor");
+            dataset.markerOptions.strokeOpacity = this.getValue("markerStrokeOpacity");
+            dataset.markerOptions.fillColor = this.getValue("markerFillColor");
+            dataset.markerOptions.fillOpacity = this.getValue("markerFillOpacity");
         }
         if (dataset.polylineOptions.visible) {
-            dataset.polylineOptions.geodesic = React.findDOMNode(this.refs.polylineGeodesic).checked;
-            dataset.polylineOptions.strokeWeight = React.findDOMNode(this.refs.polylineStrokeWeight).value;
-            dataset.polylineOptions.strokeColor = React.findDOMNode(this.refs.polylineStrokeColor).value;
-            dataset.polylineOptions.strokeOpacity = React.findDOMNode(this.refs.polylineStrokeOpacity).value;
+            dataset.polylineOptions.geodesic = this.getChecked("polylineGeodesic");
+            dataset.polylineOptions.strokeWeight = this.f(2, 32, 0, this.getValue("polylineStrokeWeight"));
+            dataset.polylineOptions.strokeColor = this.getValue("polylineStrokeColor");
+            dataset.polylineOptions.strokeOpacity = this.getValue("polylineStrokeOpacity");
         }
         if (dataset.polygonOptions.visible) {
-            dataset.polygonOptions.strokeWeight = React.findDOMNode(this.refs.polygonStrokeWeight).value;
-            dataset.polygonOptions.strokeColor = React.findDOMNode(this.refs.polygonStrokeColor).value;
-            dataset.polygonOptions.strokeOpacity = React.findDOMNode(this.refs.polygonStrokeOpacity).value;
-            dataset.polygonOptions.fillColor = React.findDOMNode(this.refs.polygonFillColor).value;
-            dataset.polygonOptions.fillOpacity = React.findDOMNode(this.refs.polygonFillOpacity).value;
+            dataset.polygonOptions.strokeWeight = this.f(2, 32, 0, this.getValue("polygonStrokeWeight"));
+            dataset.polygonOptions.strokeColor = this.getValue("polygonStrokeColor");
+            dataset.polygonOptions.strokeOpacity = this.getValue("polygonStrokeOpacity");
+            dataset.polygonOptions.fillColor = this.getValue("polygonFillColor");
+            dataset.polygonOptions.fillOpacity = this.getValue("polygonFillOpacity");
         }
         if (dataset.heatmapOptions.visible) {
-            dataset.heatmapOptions.dissipating = React.findDOMNode(this.refs.heatmapDissipating).checked;
-            dataset.heatmapOptions.radius = parseFloat(React.findDOMNode(this.refs.heatmapRadius).value);
-            dataset.heatmapOptions.opacity = React.findDOMNode(this.refs.heatmapOpacity).value;
+            dataset.heatmapOptions.dissipating = this.getChecked("heatmapDissipating");
+            dataset.heatmapOptions.radius = parseInt(this.getValue("heatmapRadius"));
+            dataset.heatmapOptions.opacity = this.getValue("heatmapOpacity");
         }
-        dataset.markerOptions.visible = React.findDOMNode(this.refs.markerVisible).checked;
-        dataset.polylineOptions.visible = React.findDOMNode(this.refs.polylineVisible).checked;
-        dataset.polygonOptions.visible = React.findDOMNode(this.refs.polygonVisible).checked;
-        dataset.heatmapOptions.visible = React.findDOMNode(this.refs.heatmapVisible).checked;
+        dataset.markerOptions.visible = this.getChecked("markerVisible");
+        dataset.polylineOptions.visible = this.getChecked("polylineVisible");
+        dataset.polygonOptions.visible = this.getChecked("polygonVisible");
+        dataset.heatmapOptions.visible = this.getChecked("heatmapVisible");
         this.props.onChange();
     },
     render: function() {
@@ -92,10 +104,11 @@ var SettingsPane = React.createClass({
                     <td>
                         <input
                             type="range"
-                            min="1"
-                            max="32"
+                            min="0"
+                            max="1"
+                            step="0.01"
                             ref="markerSize"
-                            value={this.props.dataset.markerOptions.size}
+                            value={this.g(2, 99, 1, this.props.dataset.markerOptions.size)}
                             onChange={this.onChange} />
                     </td>
                 </tr>
@@ -107,10 +120,10 @@ var SettingsPane = React.createClass({
                         <input
                             type="range"
                             min="0"
-                            max="8"
-                            step="0.5"
+                            max="1"
+                            step="0.01"
                             ref="markerStrokeWeight"
-                            value={this.props.dataset.markerOptions.strokeWeight}
+                            value={this.g(2, 32, 0, this.props.dataset.markerOptions.strokeWeight)}
                             onChange={this.onChange} />
                     </td>
                 </tr>
@@ -192,10 +205,10 @@ var SettingsPane = React.createClass({
                         <input
                             type="range"
                             min="0"
-                            max="8"
-                            step="0.5"
+                            max="1"
+                            step="0.01"
                             ref="polylineStrokeWeight"
-                            value={this.props.dataset.polylineOptions.strokeWeight}
+                            value={this.g(2, 32, 0, this.props.dataset.polylineOptions.strokeWeight)}
                             onChange={this.onChange} />
                     </td>
                 </tr>
@@ -238,10 +251,10 @@ var SettingsPane = React.createClass({
                         <input
                             type="range"
                             min="0"
-                            max="8"
-                            step="0.5"
+                            max="1"
+                            step="0.01"
                             ref="polygonStrokeWeight"
-                            value={this.props.dataset.polygonOptions.strokeWeight}
+                            value={this.g(2, 32, 0, this.props.dataset.polygonOptions.strokeWeight)}
                             onChange={this.onChange} />
                     </td>
                 </tr>
@@ -324,7 +337,7 @@ var SettingsPane = React.createClass({
                             type="range"
                             min="0"
                             max="100"
-                            step="0.01"
+                            step="1"
                             ref="heatmapRadius"
                             value={this.props.dataset.heatmapOptions.radius}
                             onChange={this.onChange} />
