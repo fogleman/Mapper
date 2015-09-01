@@ -103,6 +103,9 @@ var App = React.createClass({
     },
     fit: function(dataset) {
         theMap.fitBounds(dataset.bounds);
+        this.setState({
+            selected: dataset,
+        });
     },
     onChange: function() {
         this.forceUpdate();
