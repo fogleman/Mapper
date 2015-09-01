@@ -15,6 +15,7 @@ var App = React.createClass({
             zoom: 4,
             datasets: [],
             selected: null,
+            dirty: false,
         };
     },
     dump: function() {
@@ -25,6 +26,7 @@ var App = React.createClass({
         };
     },
     save: function() {
+        this.clean();
         var data = {
             "public": false,
             "files": {
@@ -46,6 +48,7 @@ var App = React.createClass({
         });
     },
     load: function(id) {
+        this.clean();
         var url = "https://api.github.com/gists/" + id + "?callback=?";
         $.getJSON(url, function(data) {
             data = JSON.parse(data.data.files.data.content);
@@ -71,6 +74,7 @@ var App = React.createClass({
         }
     },
     add: function(dataset) {
+        this.dirty();
         var datasets = this.state.datasets;
         datasets.push(dataset);
         this.setState({
@@ -80,10 +84,12 @@ var App = React.createClass({
         this.fit(dataset);
     },
     toggle: function(dataset) {
+        this.dirty();
         dataset.visible = !dataset.visible;
         this.forceUpdate();
     },
     remove: function(dataset) {
+        this.dirty();
         if (this.state.selected === dataset) {
             this.select(dataset);
         }
@@ -108,9 +114,22 @@ var App = React.createClass({
         });
     },
     onChange: function() {
+        this.dirty();
         this.forceUpdate();
     },
+    clean: function() {
+        this.setState({
+            dirty: false,
+        });
+    },
+    dirty: function() {
+        window.location.hash = "";
+        this.setState({
+            dirty: true,
+        });
+    },
     render: function() {
+        var disabled = !this.state.dirty;
         return (
             <div>
                 <div className="left-sidebar">
@@ -129,7 +148,7 @@ var App = React.createClass({
                         <h4>Sharing</h4>
                     </div>
                     <div className="sharing">
-                        <Button onClick={this.save}>Save</Button>
+                        <Button onClick={this.save} disabled={disabled}>Save</Button>
                     </div>
                 </div>
                 <div className="map-components">
