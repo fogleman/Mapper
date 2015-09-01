@@ -1,3 +1,6 @@
+var _ = require("underscore");
+var $ = require("jquery");
+
 var Dataset = function() {
     this.name = "";
     this.data = "";
@@ -97,3 +100,5 @@ Dataset.prototype = {
         };
     },
 };
+
+module.exports = Dataset;

@@ -1,3 +1,8 @@
+var React = require("react");
+var ReactBootstrap = require("react-bootstrap");
+
+var Glyphicon = ReactBootstrap.Glyphicon;
+
 var SettingsPane = React.createClass({
     getValue: function(x) {
         return React.findDOMNode(this.refs[x]).value;
@@ -426,3 +431,5 @@ var SettingsPane = React.createClass({
         );
     }
 });
+
+module.exports = SettingsPane;

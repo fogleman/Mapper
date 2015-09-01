@@ -1,3 +1,12 @@
+var React = require("react");
+var ReactBootstrap = require("react-bootstrap");
+var Dataset = require("./dataset");
+
+var Button = ReactBootstrap.Button;
+var Glyphicon = ReactBootstrap.Glyphicon;
+var Input = ReactBootstrap.Input;
+var Modal = ReactBootstrap.Modal;
+
 var DatasetButton = React.createClass({
     getInitialState: function() {
         return {
@@ -58,3 +67,5 @@ var DatasetButton = React.createClass({
         );
     },
 });
+
+module.exports = DatasetButton;

@@ -1,7 +1,13 @@
+var $ = require("jquery");
+var React = require("react");
+var ReactBootstrap = require("react-bootstrap");
+var DatasetList = require("./dataset-list");
+var SettingsPane = require("./settings-pane");
+var Dataset = require("./dataset");
+var Map = require("./map");
+var theMap = require("./the-map");
+
 var Button = ReactBootstrap.Button;
-var Glyphicon = ReactBootstrap.Glyphicon;
-var Input = ReactBootstrap.Input;
-var Modal = ReactBootstrap.Modal;
 
 var App = React.createClass({
     componentWillMount: function() {

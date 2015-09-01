@@ -1,3 +1,9 @@
+var React = require("react");
+var ReactBootstrap = require("react-bootstrap");
+var DatasetButton = require("./dataset-button");
+
+var Glyphicon = ReactBootstrap.Glyphicon;
+
 var DatasetListItem = React.createClass({
     toggle: function() {
         this.props.toggle(this.props.dataset);
@@ -73,3 +79,5 @@ var DatasetList = React.createClass({
         );
     }
 });
+
+module.exports = DatasetList;

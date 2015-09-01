@@ -1,3 +1,7 @@
+var _ = require("underscore");
+var React = require("react");
+var theMap = require("./the-map");
+
 function NewMapComponent(cls, isInstance) {
     return React.createClass({
         getInitialState: function() {
@@ -38,8 +42,6 @@ function NewMapComponent(cls, isInstance) {
         },
     });
 }
-
-var theMap = new google.maps.Map(document.getElementById("map"));
 
 var BaseMap = NewMapComponent(theMap, true);
 var Marker = NewMapComponent(google.maps.Marker);
@@ -115,3 +117,5 @@ var Map = React.createClass({
         return result;
     },
 });
+
+module.exports = Map;
