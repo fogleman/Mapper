@@ -47,7 +47,6 @@ var App = React.createClass({
     },
     load: function(id) {
         var url = "https://api.github.com/gists/" + id + "?callback=?";
-        console.log(url);
         $.getJSON(url, function(data) {
             data = JSON.parse(data.data.files.data.content);
             var datasets = data.datasets.map(function(x) {
@@ -67,7 +66,6 @@ var App = React.createClass({
     },
     onHashChange: function() {
         var hash = window.location.hash.substr(1);
-        console.log(hash);
         if (hash) {
             this.load(hash);
         }
