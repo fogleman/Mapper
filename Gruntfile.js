@@ -68,6 +68,13 @@ module.exports = function(grunt) {
         touch: {
             build: ['build/js/bundle.js']
         },
+        uglify: {
+            prod: {
+                files: {
+                    'build/js/bundle.min.js': ['build/js/bundle.js']
+                }
+            },
+        },
         watch: {
             options: {
                 livereload: true,
@@ -91,6 +98,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-touch');
@@ -101,7 +109,8 @@ module.exports = function(grunt) {
         'copy:bootstrap',
         'copy:index',
         'copy:favicon',
-        'browserify:build'
+        'browserify:build',
+        'uglify',
     ]);
 
     grunt.registerTask('default', [
