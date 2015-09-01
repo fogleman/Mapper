@@ -2,7 +2,6 @@ var DatasetButton = React.createClass({
     getInitialState: function() {
         return {
             showModal: false,
-            name: "",
             data: "",
         };
     },
@@ -14,20 +13,18 @@ var DatasetButton = React.createClass({
     open: function() {
         this.setState({
             showModal: true,
-            name: "",
             data: "",
         });
     },
     submit: function() {
-        var name = this.state.name || "Untitled";
-        var data = this.state.data;
-        var dataset = new Dataset(name, data);
+        var dataset = new Dataset();
+        dataset.data = this.state.data;
+        dataset.init();
         this.props.add(dataset);
         this.close();
     },
     onChange: function() {
         this.setState({
-            name: this.refs.name.getValue(),
             data: this.refs.data.getValue(),
         });
     },
@@ -43,15 +40,10 @@ var DatasetButton = React.createClass({
                     </Modal.Header>
                     <Modal.Body>
                         <Input
-                            type="text"
-                            label="Name"
-                            placeholder="Enter a name for this dataset."
-                            ref="name"
-                            value={this.state.name}
-                            onChange={this.onChange} />
-                        <Input
                             type="textarea"
                             label="Data"
+                            rows="5"
+                            autoFocus={true}
                             placeholder="Paste your lat/lng data points here."
                             ref="data"
                             value={this.state.data}
@@ -59,7 +51,7 @@ var DatasetButton = React.createClass({
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.close}>Cancel</Button>
-                        <Button onClick={this.submit} bsStyle="primary">Submit</Button>
+                        <Button onClick={this.submit} bsStyle="primary" type="submit">Submit</Button>
                     </Modal.Footer>
                 </Modal>
             </div>

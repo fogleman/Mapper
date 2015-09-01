@@ -54,8 +54,8 @@ var SettingsPane = React.createClass({
                     <div className="sidebar-header">
                         <h4>Settings</h4>
                     </div>
-                    <p className="settings-message">
-                        Select a dataset to configure its settings.
+                    <p className="sidebar-message">
+                        <Glyphicon glyph="info-sign" /> Select a dataset to configure its settings.
                     </p>
                 </div>
             );

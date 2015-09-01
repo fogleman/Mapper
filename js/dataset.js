@@ -1,23 +1,17 @@
-var Dataset = function(name, data) {
-    this.name = name;
-    this.data = data;
+var Dataset = function() {
+    this.name = "";
+    this.data = "";
     this.visible = true;
-
-    this.points = this.parse(data);
-    this.bounds = new google.maps.LatLngBounds();
-    this.points.map(function(x) {
-        this.bounds.extend(x);
-    }, this);
 
     this.markerOptions = {
         visible: true,
-        symbol: "circle",
+        symbol: "default",
         size: 8,
         strokeWeight: 1,
         strokeColor: "#000000",
         strokeOpacity: 1,
-        fillColor: "#000000",
-        fillOpacity: 0.5,
+        fillColor: "#ff0000",
+        fillOpacity: 0.75,
     };
 
     this.polylineOptions = {
@@ -46,6 +40,34 @@ var Dataset = function(name, data) {
 };
 
 Dataset.prototype = {
+    dump: function() {
+        return {
+            name: this.name,
+            data: this.data,
+            visible: this.visible,
+            markerOptions: this.markerOptions,
+            polylineOptions: this.polylineOptions,
+            polygonOptions: this.polygonOptions,
+            heatmapOptions: this.heatmapOptions,
+        };
+    },
+    load: function(x) {
+        this.name = x.name;
+        this.data = x.data;
+        this.visible = x.visible;
+        this.markerOptions = x.markerOptions;
+        this.polylineOptions = x.polylineOptions;
+        this.polygonOptions = x.polygonOptions;
+        this.heatmapOptions = x.heatmapOptions;
+        this.init();
+    },
+    init: function() {
+        this.points = this.parse(this.data);
+        this.bounds = new google.maps.LatLngBounds();
+        this.points.map(function(x) {
+            this.bounds.extend(x);
+        }, this);
+    },
     parse: function(data) {
         var result = [];
         var lines = data.split("\n");

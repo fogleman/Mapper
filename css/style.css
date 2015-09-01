@@ -109,7 +109,11 @@ html, body, #map {
     width: 100%;
 }
 
-.settings-message {
+.sidebar-message {
     margin: 10px;
     color: #888;
+}
+
+.sharing {
+    margin: 8px;
 }

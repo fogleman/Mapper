@@ -54,6 +54,13 @@ var DatasetList = React.createClass({
                 fit={this.props.fit}
                 dataset={dataset} />
         }, this);
+        if (items.length === 0) {
+            items = (
+                <p className="sidebar-message">
+                    <Glyphicon glyph="info-sign" /> Add a dataset to display data on the map.
+                </p>
+            );
+        }
         return (
             <div>
                 <div className="sidebar-header">
