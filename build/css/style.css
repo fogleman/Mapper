@@ -1,0 +1,119 @@
+html, body, #map {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    margin-left: 250px;
+}
+
+.map-components {
+    display: none;
+}
+
+.left-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    background: #fff;
+    border-right: 1px solid #ccc;
+    overflow-y: scroll;
+}
+
+.sidebar-header {
+    background: #ddd;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.sidebar-header h4 {
+    margin: 0;
+}
+
+.sidebar-header .btn {
+    margin-top: -2px;
+    margin-right: -2px;
+}
+
+.dataset-list-item {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.selected {
+    background: #f6f6f6;
+}
+
+.dataset-list-item .glyphicon {
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.dataset-list-item .name {
+    margin-left: 16px;
+    font-size: 10pt;
+}
+
+.dataset-list-item .toggle {
+    margin-top: -2px;
+}
+
+.dataset-list-item span {
+    cursor: pointer;
+}
+
+.settings {
+    width: 100%;
+}
+
+.settings th.section {
+    font-weight: bold;
+    background: #f6f6f6;
+}
+
+.settings th {
+    font-size: 9pt;
+    font-weight: normal;
+    padding-right: 2px;
+    white-space: nowrap;
+    height: 32px;
+    text-align: left;
+    padding: 4px;
+    padding-left: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.settings td {
+    padding: 4px;
+    padding-right: 8px;
+    height: 32px;
+    border-bottom: 1px solid #eee;
+}
+
+.settings th input {
+    margin-right: 5px;
+}
+
+.settings input[type="color"] {
+    width: 100%;
+}
+
+.settings input[type="text"] {
+    width: 100%;
+}
+
+.settings select {
+    width: 100%;
+}
+
+.sidebar-message {
+    margin: 10px;
+    color: #888;
+}
+
+.sharing {
+    margin: 8px;
+}
