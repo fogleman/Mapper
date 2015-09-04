@@ -1,4 +1,5 @@
 var $ = require("jquery");
+var JSZip = require("jszip");
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 var DatasetList = require("./dataset-list");
@@ -24,6 +25,23 @@ var App = React.createClass({
             dirty: false,
         };
     },
+    zip: function(data) {
+        var zip = new JSZip();
+        zip.file("data", data);
+        var result = zip.generate({
+            type: "base64",
+            compression: "DEFLATE",
+            compressionOptions: {
+                level: 9
+            },
+        });
+        console.log(data.length, result.length);
+        return result
+    },
+    unzip: function(data) {
+        zip = new JSZip(data, {base64: true});
+        return zip.file("data").asText()
+    },
     dump: function() {
         return {
             datasets: this.state.datasets.map(function(dataset) {
@@ -37,7 +55,7 @@ var App = React.createClass({
             "public": false,
             "files": {
                 "data": {
-                    "content": JSON.stringify(this.dump())
+                    "content": this.zip(JSON.stringify(this.dump()))
                 }
             }
         };
@@ -57,7 +75,7 @@ var App = React.createClass({
         this.clean();
         var url = "https://api.github.com/gists/" + id + "?callback=?";
         $.getJSON(url, function(data) {
-            data = JSON.parse(data.data.files.data.content);
+            data = JSON.parse(this.unzip(data.data.files.data.content));
             var datasets = data.datasets.map(function(x) {
                 var dataset = new Dataset();
                 dataset.load(x);

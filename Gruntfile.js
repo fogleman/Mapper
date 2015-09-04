@@ -71,7 +71,7 @@ module.exports = function(grunt) {
         uglify: {
             prod: {
                 files: {
-                    'build/js/bundle.min.js': ['build/js/bundle.js']
+                    'build/js/bundle.js': ['build/js/bundle.js']
                 }
             },
         },
