@@ -7,11 +7,13 @@ var SettingsPane = require("./settings-pane");
 var Dataset = require("./dataset");
 var Map = require("./map");
 var theMap = require("./the-map");
+var directions = require("./directions");
 
 var Button = ReactBootstrap.Button;
 
 var App = React.createClass({
     componentWillMount: function() {
+        directions.listeners.push(this.forceUpdate.bind(this));
         window.addEventListener('hashchange', this.onHashChange);
         this.onHashChange();
     },

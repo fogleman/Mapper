@@ -40,6 +40,14 @@ var Dataset = function() {
         radius: 10,
         opacity: 0.6,
     };
+
+    this.directionsOptions = {
+        visible: false,
+        geodesic: true,
+        strokeColor: '#0088FF',
+        strokeWeight: 6,
+        strokeOpacity: 0.6,
+    };
 };
 
 Dataset.prototype = {
@@ -52,6 +60,7 @@ Dataset.prototype = {
             polylineOptions: this.polylineOptions,
             polygonOptions: this.polygonOptions,
             heatmapOptions: this.heatmapOptions,
+            directionsOptions: this.directionsOptions,
         };
     },
     load: function(x) {
@@ -62,6 +71,7 @@ Dataset.prototype = {
         this.polylineOptions = x.polylineOptions;
         this.polygonOptions = x.polygonOptions;
         this.heatmapOptions = x.heatmapOptions;
+        this.directionsOptions = x.directionsOptions;
         this.init();
     },
     init: function() {

@@ -46,10 +46,17 @@ var SettingsPane = React.createClass({
             dataset.heatmapOptions.radius = parseInt(this.getValue("heatmapRadius"));
             dataset.heatmapOptions.opacity = this.getValue("heatmapOpacity");
         }
+        if (dataset.directionsOptions.visible) {
+            dataset.directionsOptions.geodesic = this.getChecked("directionsGeodesic");
+            dataset.directionsOptions.strokeWeight = this.f(2, 32, 0, this.getValue("directionsStrokeWeight"));
+            dataset.directionsOptions.strokeColor = this.getValue("directionsStrokeColor");
+            dataset.directionsOptions.strokeOpacity = this.getValue("directionsStrokeOpacity");
+        }
         dataset.markerOptions.visible = this.getChecked("markerVisible");
         dataset.polylineOptions.visible = this.getChecked("polylineVisible");
         dataset.polygonOptions.visible = this.getChecked("polygonVisible");
         dataset.heatmapOptions.visible = this.getChecked("heatmapVisible");
+        dataset.directionsOptions.visible = this.getChecked("directionsVisible");
         this.props.onChange();
     },
     render: function() {
@@ -366,6 +373,64 @@ var SettingsPane = React.createClass({
             );
         }
 
+        var directionsSettings = [];
+        if (this.props.dataset.directionsOptions.visible) {
+            directionsSettings.push(
+                <tr>
+                    <th>Geodesic</th>
+                    <td>
+                        <input
+                            type="checkbox"
+                            ref="directionsGeodesic"
+                            checked={this.props.dataset.directionsOptions.geodesic}
+                            onChange={this.onChange} />
+                    </td>
+                </tr>
+            );
+            directionsSettings.push(
+                <tr>
+                    <th>Stroke Weight</th>
+                    <td>
+                        <input
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            ref="directionsStrokeWeight"
+                            value={this.g(2, 32, 0, this.props.dataset.directionsOptions.strokeWeight)}
+                            onChange={this.onChange} />
+                    </td>
+                </tr>
+            );
+            directionsSettings.push(
+                <tr>
+                    <th>Stroke Color</th>
+                    <td>
+                        <input
+                            type="color"
+                            ref="directionsStrokeColor"
+                            value={this.props.dataset.directionsOptions.strokeColor}
+                            onChange={this.onChange} />
+                    </td>
+                </tr>
+            );
+            directionsSettings.push(
+                <tr>
+                    <th>Stroke Opacity</th>
+                    <td>
+                        <input
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            ref="directionsStrokeOpacity"
+                            value={this.props.dataset.directionsOptions.strokeOpacity}
+                            onChange={this.onChange} />
+                    </td>
+                </tr>
+            );
+        }
+
         return (
             <div>
                 <div className="sidebar-header">
@@ -426,6 +491,18 @@ var SettingsPane = React.createClass({
                         </th>
                     </tr>
                     {heatmapSettings}
+
+                    <tr>
+                        <th className="section" colSpan="2">
+                            <input
+                                type="checkbox"
+                                ref="directionsVisible"
+                                checked={this.props.dataset.directionsOptions.visible}
+                                onChange={this.onChange} />
+                            Directions
+                        </th>
+                    </tr>
+                    {directionsSettings}
                 </tbody></table>
             </div>
         );
